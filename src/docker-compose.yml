@@ -1,0 +1,39 @@
+builder:
+  volumes:
+    - ./src:/code
+    - ./lib:/lib
+  command: /app/node_modules/js-babel-dev/node_modules/.bin/babel /code --out-dir lib --source-maps --watch
+  # working_dir: /code
+  build: .
+
+server:
+  volumes:
+    - ./lib:/lib
+  command: node /lib/helloWorld.js
+  build: .
+
+# TODO something that watches and lints
+# linter:
+#   volumes:
+#     - ./src:/code
+#   build: .
+#   command:
+
+tests:
+  volumes:
+    - ./lib:/lib
+    command: /app/node_modules/mocha/bin/mocha --recursive --compilers js:babel-register --watch
+  working_dir: /lib
+  build: .
+
+# what builds the production image?
+
+
+# one image
+# capable of building the app
+# capable of running the production app
+
+# image is also capable of watching built artifacts and running them
+# also running tests/linting?
+
+# how much do tests and linting add to the box..?
