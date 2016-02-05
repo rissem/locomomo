@@ -1,0 +1,38 @@
+builder:
+  volumes:
+    - ./src:/code
+    - ./build:/build
+  command: /app/node_modules/.bin/babel /code --out-dir /build --source-maps --watch
+  build: .
+
+server:
+  volumes:
+    - ./build:/build
+  command: /app/node_modules/.bin/nodemon --watch /build /build/helloWorld.js
+  ports:
+    - 8000:8000
+  build: .
+
+linter:
+  volumes:
+    - ./src:/code
+  build: .
+  command: /app/node_modules/.bin/esw -w /code
+
+tests:
+  volumes:
+    - ./build:/build
+  command: /app/node_modules/.bin/mocha --recursive --compilers js:babel-register --watch
+  working_dir: /build
+  build: .
+
+hound:
+  image: etsy/hound
+  ports:
+    - 6080:6080
+  volumes:
+    - .:/code
+    - ./config:/hound
+
+#TODO UI Harness
+#TODO MadEye, think about how to include a service that's a composition, not just a container..

@@ -1,0 +1,9 @@
+{
+  "max-concurrent-indexers" : 2,
+  "dbpath" : "data",
+  "repos" : {
+    "LocalFolder" : {
+      "url" : "file:///code"
+    }
+  }
+}

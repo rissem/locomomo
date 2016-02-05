@@ -1,5 +1,10 @@
-const greeting = "i am a server";
+console.log("server has started");
 
-setTimeout(function(){
+var x = 40;
+
+var greeting = "i am a server";
+
+setInterval(function(){
   console.log(greeting);
-}, 5000);
+  console.log(x);
+}, 10000);
